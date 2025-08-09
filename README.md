@@ -16,11 +16,15 @@ It gives you syntax highlighting and autoindentation for:
 
 ![screenshot](./screenshot.png)
 
-For now it applies only when the first line of a file is exactly the following:
+For now it applies only when the first line of the file is a jj config-schema
+declaration, e.g.
 
 ```toml
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 ```
+
+(See ftdetect/jjconfig.lua for the exact pattern if you're using something different and
+having trouble.)
 
 ## Dependencies
 
