@@ -1,21 +1,21 @@
 ;; inherits: toml
 
-; Syntax highlight template and revset RHS
+; Syntax highlight revset and template RHS
 (table
  (bare_key) @table-name (#any-of? @table-name "revsets" "revset-aliases")
  (pair (_) (string (string_content) @injection.content))
  (#set! injection.language "jjrevset"))
 
-(table
- (bare_key) @table-name (#any-of? @table-name "revsets" "revset-aliases")
- (pair . (quoted_key (string_content) @injection.content))
- (#set! injection.language "jjrevset"))
-
-; Syntax highlight function definitions in template/revset alias LHS
 (table
  (bare_key) @table-name (#any-of? @table-name "templates" "template-aliases")
  (pair (_) (string (string_content) @injection.content))
  (#set! injection.language "jjtemplate"))
+
+; Syntax highlight function definitions in revset/template LHS
+(table
+ (bare_key) @table-name (#any-of? @table-name "revsets" "revset-aliases")
+ (pair . (quoted_key (string_content) @injection.content))
+ (#set! injection.language "jjrevset"))
 
 (table
  (bare_key) @table-name (#any-of? @table-name "templates" "template-aliases")
