@@ -1,7 +1,18 @@
 # nvim-treesitter-jjconfig
 
-This is a neovim plugin providing treesitter syntax highlighting for revset expressions
-and templates inside [jj](https://jj-vcs.github.io) configuration files.
+This is a neovim plugin providing filetype detection and a treesitter parser for revset
+expressions and templates inside [jj](https://jj-vcs.github.io) configuration files.
+
+It gives you syntax highlighting and autoindentation for:
+
+- toml strings containing jj revset expressions:
+    - in `[revsets]/[revset-aliases]` tables
+    - in command aliases when immediately following "--revisions", "--from", "--to",
+      etc. (I've left out the short forms for now because they seem likely to trigger
+      false positives.)
+- toml strings containing jj templates:
+    - in `[templates]/[template-aliases]` tables
+    - in command aliases when immediately following "--template" or "-T".
 
 ![screenshot](./screenshot.png)
 
