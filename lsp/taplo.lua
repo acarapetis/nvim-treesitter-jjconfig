@@ -1,1 +1,1 @@
-return { filetypes = { "toml", "jjconfig.toml" }}
+return { filetypes = { "toml", "jjconfig.toml" } }
