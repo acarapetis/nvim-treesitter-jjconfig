@@ -3,10 +3,12 @@
 This is a neovim plugin providing treesitter syntax highlighting for revset expressions
 and templates inside [jj](https://jj-vcs.github.io) configuration files.
 
+![screenshot](./screenshot.png)
+
 For now it applies only when the first line of a file is exactly the following:
 
 ```toml
-"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.ison"
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 ```
 
 ## Dependencies
