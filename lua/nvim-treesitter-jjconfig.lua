@@ -1,7 +1,16 @@
----@diagnostic disable: inject-field
 local M = {}
 
+local all_parsers = { "jjconfig", "jjtemplate", "jjrevset" }
+
+---@class TSJJConfig
+---@field ensure_installed? boolean If true, automatically install jj parsers.
+---@field sync_install? boolean If true, do the automatic installation synchronously.
+
+---@param opts TSJJConfig|nil
 function M.setup(opts)
+    opts = opts or {}
+
+    ---@diagnostic disable: inject-field
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
     parser_config.jjconfig = {
         install_info = {
@@ -30,6 +39,14 @@ function M.setup(opts)
             requires_generate_from_grammar = false,
         },
     }
+
+    if opts.ensure_installed then
+        if opts.sync_install then
+            require("nvim-treesitter.install").ensure_installed_sync(all_parsers)
+        else
+            require("nvim-treesitter.install").ensure_installed(all_parsers)
+        end
+    end
 end
 
 return M
