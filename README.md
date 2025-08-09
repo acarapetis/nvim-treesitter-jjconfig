@@ -54,4 +54,8 @@ This would not be possible without the
 [jjtemplate](https://github.com/bryceberger/tree-sitter-jjtemplate) and
 [jjrevset](https://github.com/bryceberger/tree-sitter-jjrevset) parsers by bryceberger.
 
+The syntax highlighting queries for jjtemplate and jjrevset included in this repo
+were [originally written by bryceberger for
+helix](https://github.com/helix-editor/helix/pull/13926/files).
+
 Thanks to bryceberger and algmyr for a fruitful conversation on the JJ discord.
