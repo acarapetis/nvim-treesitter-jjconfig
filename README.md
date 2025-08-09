@@ -1,7 +1,7 @@
 # nvim-treesitter-jjconfig
 
 This is a neovim plugin providing treesitter syntax highlighting for revset expressions
-and templates inside [jj](https://jj-vcs.github.io) configuration files. It highlights:
+and templates inside [jj](https://jj-vcs.github.io) configuration files.
 
 For now it applies only when the first line of a file is exactly the following:
 
