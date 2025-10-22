@@ -37,3 +37,13 @@
                   (string (string_content) @injection.content)))
  (#any-of? @before "--template" "-T")
  (#set! injection.language "jjtemplate"))
+
+; Syntax highlight shell scripts in command aliases
+(table
+ (bare_key) @table-name (#eq? @table-name "aliases")
+ (pair (_) (array (string (string_content) @b1) . 
+                  (string (string_content) @b2) . 
+                  (string (string_content) @injection.content)))
+ (#any-of? @b1 "bash" "sh")
+ (#eq? @b2 "-c")
+ (#set! injection.language "sh"))

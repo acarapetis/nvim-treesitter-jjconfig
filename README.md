@@ -13,6 +13,9 @@ It gives you syntax highlighting and autoindentation for:
 - toml strings containing jj templates:
     - in `[templates]/[template-aliases]` tables
     - in command aliases when immediately following "--template" or "-T".
+- toml strings containing shell scripts:
+    - in command aliases when immediately following the sequence "sh", "-c" or "bash",
+      "-c".
 
 ![screenshot](./screenshot.png)
 
