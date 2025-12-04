@@ -19,21 +19,20 @@ It gives you syntax highlighting and autoindentation for:
 
 ![screenshot](./screenshot.png)
 
-For now it applies only when the first line of the file is a jj config-schema
-declaration, e.g.
+These features should be activated whenever you're editing a toml file that declares its
+schema to be jj's config-schema, either with a top-level JSON Schema declaration:
 
 ```toml
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 ```
-
-or
+or with a Taplo/Tombi schema directive comment:
 
 ```toml
 #:schema https://docs.jj-vcs.dev/latest/config-schema.json
 ```
 
-(See ftdetect/jjconfig.lua for the exact patterns if you're using something different and
-having trouble.)
+Note that this schema directive comment must be part of a comment block at the very top
+of the file.
 
 ## Dependencies
 
