@@ -26,7 +26,13 @@ declaration, e.g.
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 ```
 
-(See ftdetect/jjconfig.lua for the exact pattern if you're using something different and
+or
+
+```toml
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+```
+
+(See ftdetect/jjconfig.lua for the exact patterns if you're using something different and
 having trouble.)
 
 ## Dependencies
