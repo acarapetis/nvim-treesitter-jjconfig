@@ -1,9 +1,12 @@
 # nvim-treesitter-jjconfig
 
 This is a neovim plugin providing filetype detection and a treesitter parser for revset
-expressions and templates inside [jj](https://jj-vcs.github.io) configuration files.
+expressions and templates inside [jj](https://jj-vcs.github.io) and
+[jjui](https://github.com/idursun/jjui) configuration files.
 
-It gives you syntax highlighting and autoindentation for:
+## jj config features
+
+Syntax highlighting and autoindentation for:
 
 - toml strings containing jj revset expressions:
     - in `[revsets]/[revset-aliases]` tables
@@ -33,6 +36,15 @@ or with a Taplo/Tombi schema directive comment:
 
 Note that this schema directive comment must be part of a comment block at the very top
 of the file.
+
+## jjui config features
+
+Syntax highlighting and autoindentation for:
+
+- lua scripts in jjui custom commands
+
+This is activated whenever you're editing a file called `config.toml` in a directory
+called `jjui`.
 
 ## Dependencies
 

@@ -21,6 +21,15 @@ function M.setup(opts)
             requires_generate_from_grammar = false,
         },
     }
+    parser_config.jjui = {
+        install_info = {
+            url = "https://github.com/acarapetis/tree-sitter-toml",
+            files = { "src/parser.c", "src/scanner.c" },
+            revision = "7b228d27bbe08e8b41ec25c1da6f35a87bca4ad2",
+            generate_requires_npm = false,
+            requires_generate_from_grammar = false,
+        },
+    }
     parser_config.jjtemplate = {
         install_info = {
             url = "https://github.com/bryceberger/tree-sitter-jjtemplate",
