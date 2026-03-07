@@ -1,6 +1,6 @@
 local M = {}
 
-local all_parsers = { "jjconfig", "jjtemplate", "jjrevset" }
+local all_parsers = { "jjconfig", "jjtemplate", "jjrevset", "jjui" }
 
 ---@class TSJJConfig
 ---@field ensure_installed? boolean If true, automatically install jj parsers.
