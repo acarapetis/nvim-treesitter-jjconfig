@@ -1,19 +1,25 @@
 # nvim-treesitter-jjconfig
 
+**NOTE**: This version of nvim-treesitter-jjconfig is compatible only with the new
+`main` branch of nvim-treesitter. If you're still using the `master` branch of
+`nvim-treesitter` you can use our corresponding version
+[here](https://github.com/acarapetis/nvim-treesitter-jjconfig/tree/master), but note
+that it will not receive any future features.
+
 This is a neovim plugin providing filetype detection and a treesitter parser for revset
 expressions and templates inside [jj](https://jj-vcs.github.io) and
 [jjui](https://github.com/idursun/jjui) configuration files.
 
 ## jj config features
 
-Syntax highlighting and autoindentation for:
+The `jjconfig` parser provides syntax highlighting and autoindentation for:
 
-- toml strings containing jj revset expressions:
+- toml strings containing jj revset expressions (via the injected `jjrevset` parser):
     - in `[revsets]/[revset-aliases]` tables
     - in command aliases when immediately following "--revisions", "--from", "--to",
       etc. (I've left out the short forms for now because they seem likely to trigger
       false positives.)
-- toml strings containing jj templates:
+- toml strings containing jj templates (via the injected `jjtemplate` parser):
     - in `[templates]/[template-aliases]` tables
     - in command aliases when immediately following "--template" or "-T".
 - toml strings containing shell scripts:
@@ -39,7 +45,7 @@ of the file.
 
 ## jjui config features
 
-Syntax highlighting and autoindentation for:
+The `jjui` parser provides syntax highlighting and autoindentation for:
 
 - lua scripts in jjui custom commands
 
@@ -48,39 +54,42 @@ called `jjui`.
 
 ## Dependencies
 
-- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (`main` branch)
 
 ## Installation
 
 Install this neovim plugin in whatever manner you prefer, and somewhere in your setup
-_after_ setting up `nvim-treesitter`, call
-`require("nvim-treesitter-jjconfig").config()`. You can optionally provide an options
-table with any of the following options:
+call `require("nvim-treesitter-jjconfig").setup()`. This registers the parsers
+`jjconfig`, `jjrevset`, `jjtemplate` and `jjui` with nvim-treesitter, so they are then
+available to install via `:TSInstall` or `require("nvim-treesitter").install`.
 
-| Option           | Type | Effect        |
-| ---------------- | ---- |----------------------------------------------------------- |
-| ensure_installed | bool | automatically install the jj treesitter parsers at startup |
-| sync_install     | bool | do the automatic installation synchronously                |
-
-Example [lazy.nvim](https://lazy.folke.io/) config:
+Example [lazy.nvim](https://lazy.folke.io/) config below. Note the dependency order - we
+want nvim-treesitter-jjconfig to be loaded first so that nvim-treesitter"s build step
+includes our parsers.
 
 ```lua
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
         lazy = false,
         build = ":TSUpdate",
+        dependencies = {
+            "acarapetis/nvim-treesitter-jjconfig",
+            branch = "main",
+            opts = {},
+        },
         config = function()
-            require("nvim-treesitter.configs").setup({
-                -- ...
+            local ts = require("nvim-treesitter")
+            ts.install({ "jjconfig", "jjrevset", "jjtemplate", "jjui" })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "*",
+                callback = function(ev)
+                    pcall(vim.treesitter.start, ev.buf)
+                    vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
             })
-        end
-    },
-    {
-        "acarapetis/nvim-treesitter-jjconfig",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        lazy = false,
-        opts = { ensure_installed = true },
+        end,
     }
 }
 ```

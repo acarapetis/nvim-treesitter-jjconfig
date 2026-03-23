@@ -1,61 +1,46 @@
 local M = {}
 
-local all_parsers = { "jjconfig", "jjtemplate", "jjrevset", "jjui" }
-
----@class TSJJConfig
----@field ensure_installed? boolean If true, automatically install jj parsers.
----@field sync_install? boolean If true, do the automatic installation synchronously.
-
----@param opts TSJJConfig|nil
-function M.setup(opts)
-    opts = opts or {}
-
-    ---@diagnostic disable: inject-field
-    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-    parser_config.jjconfig = {
+local function register_parsers()
+    local parsers = require("nvim-treesitter.parsers")
+    parsers.jjconfig = {
+        tier = 2,
         install_info = {
             url = "https://github.com/acarapetis/tree-sitter-toml",
             files = { "src/parser.c", "src/scanner.c" },
             revision = "bdab29474846592d41fc4e298e0e1db048566af7",
-            generate_requires_npm = false,
-            requires_generate_from_grammar = false,
         },
     }
-    parser_config.jjui = {
+    parsers.jjui = {
+        tier = 2,
         install_info = {
             url = "https://github.com/acarapetis/tree-sitter-toml",
             files = { "src/parser.c", "src/scanner.c" },
             revision = "7b228d27bbe08e8b41ec25c1da6f35a87bca4ad2",
-            generate_requires_npm = false,
-            requires_generate_from_grammar = false,
         },
     }
-    parser_config.jjtemplate = {
+    parsers.jjtemplate = {
+        tier = 2,
         install_info = {
             url = "https://github.com/bryceberger/tree-sitter-jjtemplate",
             files = { "src/parser.c" },
             revision = "4313eda8ac31c60e550e3ad5841b100a0a686715",
-            generate_requires_npm = false,
-            requires_generate_from_grammar = false,
         },
     }
-    parser_config.jjrevset = {
+    parsers.jjrevset = {
+        tier = 2,
         install_info = {
             url = "https://github.com/bryceberger/tree-sitter-jjrevset",
             files = { "src/parser.c" },
             revision = "d9af23944b884ec528b505f41d81923bb3136a51",
-            generate_requires_npm = false,
-            requires_generate_from_grammar = false,
         },
     }
+end
 
-    if opts.ensure_installed then
-        if opts.sync_install then
-            require("nvim-treesitter.install").ensure_installed_sync(all_parsers)
-        else
-            require("nvim-treesitter.install").ensure_installed(all_parsers)
-        end
-    end
+function M.setup()
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "TSUpdate",
+        callback = register_parsers,
+    })
 end
 
 return M
