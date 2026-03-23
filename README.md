@@ -2,9 +2,9 @@
 
 **NOTE**: This version of nvim-treesitter-jjconfig is compatible only with the new
 `main` branch of nvim-treesitter. If you're still using the `master` branch of
-`nvim-treesitter` you can use our corresponding version
-[here](https://github.com/acarapetis/nvim-treesitter-jjconfig/tree/master), but note
-that it will not receive any future features.
+`nvim-treesitter` you can use our corresponding
+[master branch](https://github.com/acarapetis/nvim-treesitter-jjconfig/tree/master), but
+note that it will not receive any future features.
 
 This is a neovim plugin providing filetype detection and a treesitter parser for revset
 expressions and templates inside [jj](https://jj-vcs.github.io) and
